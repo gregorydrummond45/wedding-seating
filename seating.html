@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Seating Chart</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #f8f8f8;
+}
+
+h1 {
+    text-align: center;
+}
+
+#search {
+    width: 100%;
+    padding: 12px;
+    margin: 20px 0;
+    font-size: 16px;
+}
+
+.table {
+    background: white;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.hidden {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Welcome to Our Wedding – Find Your Seat 💍</h1>
+
+<input type="text" id="search" placeholder="Type your name...">
+
+<div id="tables"></div>
+
+<script>
+const data = {
+"Table 1": ["Sandra","Richard (Speech)","Marvia","Aretha","Gregory","Jemani","Will","Jace"],
+"Table 2": ["Micho","Beanca","Shirley","Balo","Cynthia (Speech)","Amaya","Ariana","Katia"],
+"Table 3": ["Patricia (Speech)","Dennis","Jakobi","Alexis","Jashard","Stephanie","Natalie F"],
+"Table 4": ["Surge (Speech)","Nadine","Carolynn","Caelynn","Cassie","Villon Pierre Louis","John Eyma","Joe"],
+"Table 5": ["Jillian","Aunty Jean","Bunny","Kenroy","Julia","Mike","Marvin Norett","Luigi"],
+"Table 6": ["Suzette","Donfred","Tyler","Danisha","Celanie Cherie","Guylene","Jaden","Lauren"],
+"Table 7": ["Johnathan","Chinaidrine","Christopher","Justina","Stanley","Anne Marie Jacques","Exantus","Elsinor Chevelon"],
+"Table 8": ["Lacey","Loren","Leon","Logan","Sammy","Dashline","Paul","Marvens"],
+"Table 9": ["Marcos","Christelle","Maelle","Malia","Evans","Daniela","Jordan","Laura"],
+"Table 10": ["Emmanuel","Sandra L","Jene Fene","Maudeline Fene","Valere Fanfan","Jumet Fene","Wesline Fene","Jude Fene (+ Wife)"]
+};
+
+const container = document.getElementById("tables");
+
+function renderTables(filter="") {
+    container.innerHTML = "";
+    for (let table in data) {
+        let guests = data[table].filter(name => name.toLowerCase().includes(filter.toLowerCase()));
+
+        if (filter && guests.length === 0) continue;
+
+        let div = document.createElement("div");
+        div.className = "table";
+
+        let html = `<h3>${table}</h3><ul>`;
+        (filter ? guests : data[table]).forEach(g => {
+            html += `<li>${g}</li>`;
+        });
+        html += "</ul>";
+
+        div.innerHTML = html;
+        container.appendChild(div);
+    }
+}
+
+document.getElementById("search").addEventListener("input", (e) => {
+    renderTables(e.target.value);
+});
+
+renderTables();
+</script>
+
+</body>
+</html>
